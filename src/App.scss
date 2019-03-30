@@ -10,6 +10,10 @@ body {
   margin: 0 auto;
   width: 598px;
   border-bottom: solid #979797 1px;
+  /* mobile responsive because I can't help myself */
+  @media only screen and (max-width: 598px){
+    width: 100%;
+  }
 }
 .city-name {
   font-size: 39.93px;
@@ -46,6 +50,9 @@ body {
   &:after {
     content: "\00b0"
   }
+  @media only screen and (max-width: 598px){
+    padding-left: 35%;
+  }
 }
 .high {
   font-size: 22.68px;
@@ -56,6 +63,9 @@ body {
   /* added sass to the project repo because I feel like it allows for more efficiency */
   &:after {
     content: "\00b0"
+  }
+  @media only screen and (max-width: 598px){
+    padding-right: 35%;
   }
 }
 form {

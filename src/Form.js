@@ -68,48 +68,49 @@ class Search extends Component {
         }    
     }
 
-  render() {
-    // allow for custom error messaging
-    const responseDetails = () =>  {
-        const { error } = this.state;
-        if(error === true) {
-            return(
-                <div className="error">Invalid zip, please try again</div>
-            )
+    render() {
+        // allow for custom error messaging
+        const responseDetails = () =>  {
+            const { error } = this.state;
+            if(error === true) {
+                return(
+                    <div className="error">Invalid zip, please try again</div>
+                )
+            }
         }
-    }
-    return(
-        <div>
-            <div className="response">
-                <p className="city-name">{this.state.name}
-                    <span className="icon">
-                        <img src={"http://openweathermap.org/img/w/" + this.state.icon + ".png"} alt={this.state.description + " icon"} />
-                    </span>
-                </p>
-                <p className="description">{this.state.description}</p>
-                <p className="current-temp">{this.state.temp}</p>
-                <p className="high-low">
-                    <span className="low">{this.state.low}</span>
-                    <span className="high">{this.state.high}</span>
-                </p>
+    
+        return(
+            <div>
+                <div className="response">
+                    <p className="city-name">{this.state.name}
+                        <span className="icon">
+                            <img src={"http://openweathermap.org/img/w/" + this.state.icon + ".png"} alt={this.state.description + " icon"} />
+                        </span>
+                    </p>
+                    <p className="description">{this.state.description}</p>
+                    <p className="current-temp">{this.state.temp}</p>
+                    <p className="high-low">
+                        <span className="low">{this.state.low}</span>
+                        <span className="high">{this.state.high}</span>
+                    </p>
+                </div>
+                <div className="form">
+                    <form onSubmit={this.handleInputChange.bind(this)} noValidate> 
+                    <label>Zip Code:</label>
+                        <input
+                            id="zip" 
+                            name="zip" 
+                            type="text" 
+                            placeholder="10036"
+                            ref={input => this.search = input}
+                            onChange={(e) => this.setState({ str: e.target.value })}
+                            required
+                        />
+                        <button type='submit'>Update</button>
+                        {responseDetails()}
+                    </form>
+                </div>
             </div>
-            <div className="form">
-                <form onSubmit={this.handleInputChange.bind(this)} noValidate> 
-                <label>Zip Code:</label>
-                    <input
-                        id="zip" 
-                        name="zip" 
-                        type="text" 
-                        placeholder="10036"
-                        ref={input => this.search = input}
-                        onChange={(e) => this.setState({ str: e.target.value })}
-                        required
-                    />
-                    <button type='submit'>Update</button>
-                    {responseDetails()}
-                </form>
-            </div>
-        </div>
         )
     }
 }
