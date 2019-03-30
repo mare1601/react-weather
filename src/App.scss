@@ -1,0 +1,46 @@
+body {
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.response {
+  margin: 0 auto;
+  padding: 70px 0;
+  width: 598px;
+  border-bottom: solid #979797 1px;
+  color: #4a4a4a;
+}
+.city-name {
+  font-size: 39.93px;
+  margin: 0 0 19px 0;
+}
+.description {
+  text-transform: capitalize;
+  font-size: 18.18px;
+}
+.current-temp {
+  font-size: 55.1px;
+  margin-bottom: 0px 0px 36px 0px;
+  &:after {
+    content: "\00b0"
+  }
+}
+.low {
+  font-size: 22.68px;
+  display: block;
+  float: left;
+  padding-left: 249px;
+  margin: 0 0;
+  &:after {
+    content: "\00b0"
+  }
+}
+.high {
+  font-size: 22.68px;
+  display: block;
+  float: right;
+  padding-right: 257px;
+  margin: 0 0;
+  &:after {
+    content: "\00b0"
+  }
+}

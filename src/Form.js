@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 class Search extends Component {
     constructor() {
         super();
         this.state = {
-        zip: "10036",
-        weather: [],
-        name: "New York",
-        high: "",
-        low: "",
-        isLoading: false,
+            zip: "10036",
+            weather: ["Scattered Thundershowers"],
+            name: "New York",
+            temp: "16",
+            high: "22",
+            low: "6",
+            isLoading: false,
         }
     }
     handleInputChange = (e) => {
@@ -31,14 +32,10 @@ class Search extends Component {
                 <span key={weather.response}>{weather.description}</span>
               )
             })
-            //let main = data.main.map((main) => {
-            //    return(
-            //      <div key={main.response}>{main.temp_max}</div>
-            //    )
-            //})
             this.setState({
               name: data.name,
               weather: weather,
+              temp: data.main.temp,
               high: data.main.temp_max,
               low: data.main.temp_min,
             })
@@ -52,20 +49,26 @@ class Search extends Component {
   render() {
     return (
         <div>
-          Form to input new name and weather:
-          <form onSubmit={this.handleInputChange}> 
-            <input
-              placeholder="Search for..."
-              ref={input => this.search = input}
-              onChange={(e) => this.setState({ str: e.target.value })}
-              />
-            <button type='submit'>Update</button>
-            <p>{this.state.name}</p>
-            <p>{this.state.weather}</p>
-            <p>{this.state.high}</p>
-            <p>{this.state.low}</p>
+            <div className="response">
+                <p className="city-name">{this.state.name}</p>
+                <p className="description">{this.state.weather}</p>
+                <p className="current-temp">{this.state.temp}</p>
+                <p className="low">{this.state.low}</p>
+                <p className="high">{this.state.high}</p>
+            </div>
+            <div className="form">
+                Form to input new name and weather:
+                <form onSubmit={this.handleInputChange}> 
+                    <input
+                    placeholder="10036"
+                    ref={input => this.search = input}
+                    onChange={(e) => this.setState({ str: e.target.value })}
+                    />
+                    <button type='submit'>Update</button>
 
-          </form>
+
+                </form>
+            </div>
         </div>
     )
   }
