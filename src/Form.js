@@ -6,12 +6,12 @@ class Search extends Component {
         super();
         this.state = {
             zip: "10036",
-            description: ["Scattered Thundershowers"],
-            name: "New York",
-            temp: "16",
-            high: "22",
-            low: "6",
-            icon: "10d",
+            description: [],
+            name: "",
+            temp: "",
+            high: "",
+            low: "",
+            icon: "",
             error: null,
         }
     }
@@ -20,17 +20,12 @@ class Search extends Component {
         this.setState({
             zip: this.search.value
         })
+        e.target.reset();
     }
-    componentDidUpdate(prevProps,prevState) {
-        if(prevState.zip !== this.state.zip){
-          fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&units=imperial&appid=709847967f5e54b97308c1b2cae4dee5`)
+    componentDidMount(){
+        fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&units=imperial&appid=709847967f5e54b97308c1b2cae4dee5`)
           .then(response => response.json())
           .then(data => {
-              if(data.cod === "404"){
-                    this.setState({
-                        error: true,
-                    });
-            } else {
             this.setState({
                 name: data.name,
                 description: data.weather[0].description,
@@ -40,9 +35,30 @@ class Search extends Component {
                 icon: data.weather[0].icon,
                 error: null,
             });
-          }
-    })
+        })
     }    
+    componentDidUpdate(prevProps,prevState) {
+        if(prevState.zip !== this.state.zip){
+          fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&units=imperial&appid=709847967f5e54b97308c1b2cae4dee5`)
+          .then(response => response.json())
+          .then(data => {
+                if(data.cod === "404"){
+                    this.setState({
+                        error: true,
+                    });
+                } else {
+                    this.setState({
+                        name: data.name,
+                        description: data.weather[0].description,
+                        temp: Math.round(data.main.temp),
+                        high: Math.round(data.main.temp_max),
+                        low: Math.round(data.main.temp_min),
+                        icon: data.weather[0].icon,
+                        error: null,
+                    });
+                }
+            })
+        }    
     }
 
   render() {
@@ -70,7 +86,7 @@ class Search extends Component {
                 </p>
             </div>
             <div className="form">
-                <form onSubmit={this.handleInputChange} noValidate> 
+                <form onSubmit={this.handleInputChange.bind(this)} noValidate> 
                 <label>Zip Code:</label>
                     <input
                         id="zip" 
