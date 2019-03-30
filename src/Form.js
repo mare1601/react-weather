@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.scss';
 
 class Search extends Component {
@@ -13,7 +12,6 @@ class Search extends Component {
             high: "22",
             low: "6",
             icon: "10d",
-            isLoading: false,
             error: null,
         }
     }
@@ -28,11 +26,8 @@ class Search extends Component {
           fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&units=imperial&appid=709847967f5e54b97308c1b2cae4dee5`)
           .then(response => response.json())
           .then(data => {
-              console.log(data)
               if(data.cod === "404"){
-                  console.log('yippee!')
                     this.setState({
-                        isLoaded: true,
                         error: true,
                     });
             } else {
@@ -51,32 +46,15 @@ class Search extends Component {
     }
 
   render() {
-    const { error } = this.state;
-    if (error) {
-        return(
-             <div>
-                 <span>Whoops! Try another zip :)</span>
-                 <div className="form">
-                <form onSubmit={this.handleInputChange} noValidate> 
-                <label>Zip Code:</label>
-                    <input
-                        id="zip" 
-                        name="zip" 
-                        type="text" 
-                        ppattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$"
-                        placeholder="10036"
-                        ref={input => this.search = input}
-                        onChange={(e) => this.setState({ str: e.target.value })}
-                        required
-                    />
-                    <button type='submit'>Update</button>
-                
-                </form>
-            </div>
-        </div>
-        )
-    } else {
-    return (
+    const responseDetails = () =>  {
+        const { error } = this.state;
+        if(error === true) {
+            return(
+                <div className="error">Invalid zip, please try again</div>
+            )
+        }
+    }
+    return(
         <div>
             <div className="response">
                 <p className="city-name">{this.state.name}
@@ -86,8 +64,10 @@ class Search extends Component {
                 </p>
                 <p className="description">{this.state.description}</p>
                 <p className="current-temp">{this.state.temp}</p>
-                <p className="low">{this.state.low}</p>
-                <p className="high">{this.state.high}</p>
+                <p className="high-low">
+                    <span className="low">{this.state.low}</span>
+                    <span className="high">{this.state.high}</span>
+                </p>
             </div>
             <div className="form">
                 <form onSubmit={this.handleInputChange} noValidate> 
@@ -96,20 +76,18 @@ class Search extends Component {
                         id="zip" 
                         name="zip" 
                         type="text" 
-                        ppattern="^\s*?\d{5}(?:[-\s]\d{4})?\s*?$"
                         placeholder="10036"
                         ref={input => this.search = input}
                         onChange={(e) => this.setState({ str: e.target.value })}
                         required
                     />
                     <button type='submit'>Update</button>
-                
+                    {responseDetails()}
                 </form>
             </div>
         </div>
         )
     }
-  }
 }
 
 export default Search;
