@@ -4,6 +4,7 @@ import './App.scss';
 class Search extends Component {
     constructor() {
         super();
+        // setting initial state placeholders along with initial call value
         this.state = {
             zip: "10036",
             description: [],
@@ -15,6 +16,7 @@ class Search extends Component {
             error: null,
         }
     }
+    // prevent default as well as update zip on submit, and clear form
     handleInputChange = (e) => {
         e.preventDefault();
         this.setState({
@@ -22,6 +24,8 @@ class Search extends Component {
         })
         e.target.reset();
     }
+
+    // call api and setState for first values
     componentDidMount(){
         fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&units=imperial&appid=709847967f5e54b97308c1b2cae4dee5`)
           .then(response => response.json())
@@ -37,11 +41,14 @@ class Search extends Component {
             });
         })
     }    
+
+    // call api and setState for new values
     componentDidUpdate(prevProps,prevState) {
         if(prevState.zip !== this.state.zip){
           fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${this.state.zip},us&units=imperial&appid=709847967f5e54b97308c1b2cae4dee5`)
           .then(response => response.json())
           .then(data => {
+              // handle any zip codes not available through the weather api
                 if(data.cod === "404"){
                     this.setState({
                         error: true,
@@ -62,6 +69,7 @@ class Search extends Component {
     }
 
   render() {
+    // allow for custom error messaging
     const responseDetails = () =>  {
         const { error } = this.state;
         if(error === true) {

@@ -28,6 +28,7 @@ body {
 .current-temp {
   font-size: 55.1px;
   margin: 0px 0px 20px 0px;
+  /* added sass to the project repo because I feel like it allows for more efficiency */
   &:after {
     content: "\00b0"
   }
@@ -41,6 +42,7 @@ body {
   float: left;
   padding-left: 249px;
   margin: 0 0;
+  /* added sass to the project repo because I feel like it allows for more efficiency */
   &:after {
     content: "\00b0"
   }
@@ -51,6 +53,7 @@ body {
   float: right;
   padding-right: 257px;
   margin: 0 0;
+  /* added sass to the project repo because I feel like it allows for more efficiency */
   &:after {
     content: "\00b0"
   }
