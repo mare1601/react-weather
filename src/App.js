@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Search from './Form';
+import Search from './Search';
 
 const App = () => (
       <div>
