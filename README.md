@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created using the Open Weather Map API, and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
